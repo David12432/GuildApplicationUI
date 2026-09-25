@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="GuildApplicationUI/GuildApplicationUI.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+</Solution>
