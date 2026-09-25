@@ -139,6 +139,16 @@ split directly testable.
 - **Containerization**: The application MUST be containerized with Docker
   targeting Linux; production deployments MUST run the containerized build,
   consistent with the GuildApplicationAPI microservice container strategy.
+- **System documentation**: The repository MUST maintain system documentation
+  under `docs/`:
+  - **UML diagrams** covering the core architecture and user flows (at
+    minimum: a component diagram of the application's domains and state
+    architecture, and sequence diagrams for the primary user journeys).
+  - **A high-level integration diagram** depicting the system flows this
+  frontend participates in — the GuildApplicationAPI endpoints, the Discord
+  OAuth sign-in flow, and the data flows consumed by each feature domain.
+  Documentation MUST be updated in the same pull request as any change that
+  alters the architecture or an integration surface.
 - **Component framework**: Spartan UI (`spartan.ng`) on Tailwind CSS and the
   Angular CDK. No other component library may be introduced.
 - **Brand palette**: The application's color scheme MUST use the brand blue
@@ -171,6 +181,14 @@ split directly testable.
   feature branch — direct commits to `main` are prohibited. A pull request
   MUST be created and reviewed prior to merging to `main`; merges without
   a PR are prohibited.
+- Pull requests that change the architecture or an integration surface MUST
+  include updates to the system documentation (UML diagrams and the
+  integration diagram) per the System documentation standard.
+- **PR–ticket traceability (NON-NEGOTIABLE)**: every pull request MUST be
+  recorded in the comments section of its respective GitHub ticket — a
+  comment linking the PR when it is opened, and a follow-up comment noting
+  the merge outcome. A ticket MUST always reflect the PRs that implement its
+  work.
 - All work follows the Spec Kit flow: constitution → specify → plan → tasks →
   implement, with `/speckit.clarify`, `/speckit.analyze`, and
   `/speckit.checklist` available to de-risk and validate artifacts.
@@ -198,4 +216,4 @@ split directly testable.
   constitution compliance, including the 85% coverage gate and the
   free/OSS-only dependency constraint.
 
-**Version**: 1.4.0 | **Ratified**: 2026-09-25 | **Last Amended**: 2026-09-25
+**Version**: 1.5.0 | **Ratified**: 2026-09-25 | **Last Amended**: 2026-09-25
