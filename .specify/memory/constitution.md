@@ -2,10 +2,11 @@
 
 This project is the Angular web application (frontend) for the guild
 management application. It is built on Angular 22 with Spartan UI as the
-component framework (Tailwind CSS + Angular CDK) and consumes the
-GuildApplicationAPI backend over SignalR WebSockets and HTTP. This constitution
-defines the non-negotiable engineering principles that govern all work in this
-repository.
+component framework (Tailwind CSS + Angular CDK), is delivered as a
+containerized application (Docker, Linux), and consumes the
+GuildApplicationAPI backend over HTTP (SignalR WebSockets are planned for a
+future feature). This constitution defines the non-negotiable engineering
+principles that govern all work in this repository.
 
 ## Core Principles
 
@@ -135,6 +136,9 @@ split directly testable.
 - **Platform**: Angular 22 (TypeScript, strict mode), scaffolded as a Visual
   Studio JavaScript project (`GuildApplicationUI.esproj`) inside
   `GuildApplicationUI.slnx`.
+- **Containerization**: The application MUST be containerized with Docker
+  targeting Linux; production deployments MUST run the containerized build,
+  consistent with the GuildApplicationAPI microservice container strategy.
 - **Component framework**: Spartan UI (`spartan.ng`) on Tailwind CSS and the
   Angular CDK. No other component library may be introduced.
 - **Brand palette**: The application's color scheme MUST use the brand blue
@@ -194,4 +198,4 @@ split directly testable.
   constitution compliance, including the 85% coverage gate and the
   free/OSS-only dependency constraint.
 
-**Version**: 1.3.0 | **Ratified**: 2026-09-25 | **Last Amended**: 2026-09-25
+**Version**: 1.4.0 | **Ratified**: 2026-09-25 | **Last Amended**: 2026-09-25

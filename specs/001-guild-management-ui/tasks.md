@@ -38,6 +38,7 @@ description: "Task list for feature 001-guild-management-ui"
 - [ ] T005 [P] Set up Playwright: `GuildApplicationUI/playwright.config.ts` (webServer = dev server on :4200, baseURL) + `GuildApplicationUI/e2e/`; run `npx playwright install`
 - [ ] T006 Create DDD source structure per plan.md: `src/app/core/{auth,http,shell,time}`, `src/app/shared/{models,export,components,pipes,validators}`, `src/app/features/{dashboard,roster,events,points,loot,progression,analytics,calendar,settings}` in `GuildApplicationUI/src/app/`
 - [ ] T007 Configure dev-server proxy for `/api` → local GuildApplicationAPI backend (`GuildApplicationUI/angular.json` dev-server proxy or vite proxy) + API base URLs in `GuildApplicationUI/src/environments/`
+- [ ] T077 [P] Create containerization assets in `GuildApplicationUI/`: multi-stage `Dockerfile` (Node build stage → serve-stage for the production bundle) + `.dockerignore`, targeting Linux to match the backend container strategy (constitution v1.4.0, spec NFR-005). Numbered T077 to preserve existing task-ID references; belongs to the Setup phase.
 
 ---
 

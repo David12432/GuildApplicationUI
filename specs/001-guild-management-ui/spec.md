@@ -506,6 +506,10 @@ and a user browsing the month view and upcoming list.
   support is not required in v1.
 - **NFR-004 (Availability)**: The UI MUST degrade gracefully when the backend
   is slow or unavailable (per FR-005/FR-023) rather than appearing broken.
+- **NFR-005 (Deployment)**: The application MUST be packaged and delivered as
+  a containerized build (Docker, Linux), deployable alongside the
+  containerized GuildApplicationAPI microservices in the same deployment
+  topology.
 
 ### Key Entities *(include if feature involves data)*
 
