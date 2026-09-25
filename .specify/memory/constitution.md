@@ -37,6 +37,9 @@ Code MUST use current Angular idioms rather than legacy patterns:
   of structural directives (`*ngIf`, `*ngFor`).
 - **Typed forms**: prefer typed `FormGroup`/`FormControl` reactive forms with
   strict generic typing.
+- **Modern dependency injection**: prefer the `inject()` function over
+  constructor-based injection for better type safety and reusability inside
+  functional utilities.
 
 ### III. Immutability and Type Safety
 
@@ -101,13 +104,31 @@ The application MUST be continuously validated by automated tests:
 
 - **Unit test coverage MUST remain at or above 85% at all times.** A change
   that drops coverage below 85% MUST NOT be merged.
-- Unit and component tests MUST use the project's configured test runner
-  (Jasmine/Karma in the current scaffold).
+- Unit and component tests MUST use Vitest.
 - End-to-end tests MUST use Playwright against the running application and,
   where feasible, the real GuildApplicationAPI backend.
 
 Rationale: a community-facing guild management UI must not regress; enforced
 coverage floors make quality an invariant rather than an aspiration.
+
+### VIII. Domain-Driven Modular Architecture
+
+Modularity and separation of concerns MUST structure the entire application:
+
+- **Smart vs. dumb components**: stateful container (smart) components MUST be
+  separated from pure presentation (dumb) components. Smart components handle
+  data fetching, service injection, and state; dumb components interact only
+  via `@Input()`/`@Output()`, keeping UI elements reusable and testable.
+- **Domain-Driven Design organization**: code MUST be organized around
+  business domains (e.g., auth, roster, events, points, loot, calendar)
+  instead of technical file types (e.g., a global `components/` or
+  `services/` folder), to keep the codebase scalable and cohesive.
+- **Feature-based lazy loading**: feature routes MUST be lazy-loaded to
+  minimize initial bundle size and speed up bootstrap.
+
+Rationale: separation of concerns and domain cohesion are the primary
+defenses against entanglement as the UI grows; they also make the smart/dumb
+split directly testable.
 
 ## Technology & Testing Standards
 
@@ -116,6 +137,12 @@ coverage floors make quality an invariant rather than an aspiration.
   `GuildApplicationUI.slnx`.
 - **Component framework**: Spartan UI (`spartan.ng`) on Tailwind CSS and the
   Angular CDK. No other component library may be introduced.
+- **Brand palette**: The application's color scheme MUST use the brand blue
+  `#2754F5` as the primary accent, white `#FFFFFF` for bright space, and a
+  warm gray or charcoal for neutral surfaces and text — grounding the bright
+  space with a clean, modern transition. These colors MUST be defined as
+  Tailwind theme tokens (consumed by Spartan UI theming); introducing colors
+  outside this palette requires an explicit brand exception.
 - **Licensing**: all runtime and dev dependencies MUST be free/open-source;
   paid or commercially licensed packages are prohibited.
 - **Real-time communication**: the SignalR JavaScript client MUST be used for
@@ -123,14 +150,23 @@ coverage floors make quality an invariant rather than an aspiration.
   connecting to GuildApplicationAPI's SignalR hubs.
 - **API access**: HTTP calls to the backend MUST go through typed Angular
   services (one service per backend domain), never from components directly.
-- **Unit tests**: Jasmine/Karma with the 85% minimum coverage floor enforced
-  via automated coverage measurement.
+- **State management**: NgRx MUST be used for domain and cross-cutting
+  application state (store, selectors, effects); component-local UI state uses
+  Angular signals. Prefer NgRx's signal-based APIs where available.
+- **Linting**: Angular ESLint MUST be enabled alongside strict TypeScript
+  compiler options; lint failures block the build.
+- **Unit tests**: Vitest with the 85% minimum coverage floor enforced via
+  automated coverage measurement.
 - **End-to-end tests**: Playwright.
 - **Accessibility**: Spartan UI primitives MUST keep their built-in ARIA
   behaviors; components MUST remain keyboard-navigable.
 
 ## Development Workflow & Quality Gates
 
+- **Branch & PR workflow (NON-NEGOTIABLE)**: all work MUST be done on a
+  feature branch — direct commits to `main` are prohibited. A pull request
+  MUST be created and reviewed prior to merging to `main`; merges without
+  a PR are prohibited.
 - All work follows the Spec Kit flow: constitution → specify → plan → tasks →
   implement, with `/speckit.clarify`, `/speckit.analyze`, and
   `/speckit.checklist` available to de-risk and validate artifacts.
@@ -158,4 +194,4 @@ coverage floors make quality an invariant rather than an aspiration.
   constitution compliance, including the 85% coverage gate and the
   free/OSS-only dependency constraint.
 
-**Version**: 1.0.0 | **Ratified**: 2026-09-25 | **Last Amended**: 2026-09-25
+**Version**: 1.3.0 | **Ratified**: 2026-09-25 | **Last Amended**: 2026-09-25
